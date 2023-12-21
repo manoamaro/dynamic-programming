@@ -27,3 +27,26 @@ func TestBestSum(t *testing.T) {
 		}
 	}
 }
+
+func TestBestSumTabulation(t *testing.T) {
+	cases := []struct {
+		targetSum int
+		numbers   []int
+		expected  []int
+	}{
+		{7, []int{5, 3, 4, 7}, []int{7}},
+		{8, []int{2, 3, 5}, []int{3, 5}},
+		{8, []int{1, 4, 5}, []int{4, 4}},
+		{100, []int{1, 2, 5, 25}, []int{25, 25, 25, 25}},
+		{300, []int{7, 14}, nil},
+	}
+
+	for _, test := range cases {
+		t.Run("", func(t *testing.T) {
+			output := internal.BestSumTabulation(test.targetSum, test.numbers)
+			if slices.Compare(output, test.expected) != 0 {
+				t.Errorf("Expected, %d, Received, %d", test.expected, output)
+			}
+		})
+	}
+}

@@ -26,3 +26,21 @@ func howSum(targetSum int, numbers []int, memo map[int][]int) []int {
 	memo[targetSum] = nil
 	return nil
 }
+
+func HowSumTabulation(targetSum int, numbers []int) []int {
+	table := make([][]int, targetSum+1)
+
+	table[0] = []int{}
+
+	for i := 0; i <= targetSum; i++ {
+		if table[i] != nil {
+			for _, num := range numbers {
+				if i+num <= targetSum {
+					table[i+num] = append(table[i], num)
+				}
+			}
+		}
+	}
+
+	return table[targetSum]
+}

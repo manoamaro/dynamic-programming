@@ -26,3 +26,22 @@ func countConstruct(target string, wordBank []string, memo map[string]int) int {
 	memo[target] = totalCount
 	return totalCount
 }
+
+func CountConstructTabulation(target string, wordBank []string) int {
+	table := make([]int, len(target)+1)
+
+	// empty string is always constructable
+	table[0] = 1
+
+	for i := 0; i <= len(target); i++ {
+		if table[i] > 0 {
+			for _, word := range wordBank {
+				if i+len(word) <= len(target) && target[i:i+len(word)] == word {
+					table[i+len(word)] += table[i]
+				}
+			}
+		}
+	}
+
+	return table[len(target)]
+}

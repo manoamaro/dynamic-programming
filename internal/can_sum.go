@@ -25,3 +25,20 @@ func canSum(targetSum int, numbers []int, memo map[int]bool) bool {
 	memo[targetSum] = false
 	return false
 }
+
+func CanSumTabulation(targetSum int, numbers []int) bool {
+	table := make([]bool, targetSum+1)
+	table[0] = true
+
+	for i := 0; i <= targetSum; i++ {
+		if table[i] {
+			for _, num := range numbers {
+				if i+num <= targetSum {
+					table[i+num] = true
+				}
+			}
+		}
+	}
+
+	return table[targetSum]
+}

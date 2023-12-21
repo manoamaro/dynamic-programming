@@ -31,3 +31,23 @@ func bestSum(targetSum int, numbers []int, memo map[int][]int) []int {
 	memo[targetSum] = shortestCombination
 	return shortestCombination
 }
+
+func BestSumTabulation(targetSum int, numbers []int) []int {
+	table := make([][]int, targetSum+1)
+	table[0] = []int{}
+
+	for i := 0; i <= targetSum; i++ {
+		if table[i] != nil {
+			for _, num := range numbers {
+				if i+num <= targetSum {
+					combined := append(table[i], num)
+					if table[i+num] == nil || len(combined) < len(table[i+num]) {
+						table[i+num] = combined
+					}
+				}
+			}
+		}
+	}
+
+	return table[targetSum]
+}
